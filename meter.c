@@ -6,6 +6,7 @@
 #include <stdbool.h>
 
 #include "meter.h"
+#include "helpers.h"
 
 
 bool _verbose = false;
@@ -21,7 +22,7 @@ int main(int argc, char *argv[]) {
   }
   opterr = 0;
   int c;
-  while ((c = getopt (argc, argv, "w:")) != -1){
+  while ((c = getopt (argc, argv, "w:v")) != -1){
     switch (c) {
       case 'v':
         _verbose = true;
@@ -64,7 +65,7 @@ int process_file(char *input_file, uint32_t window_size){
   long length;
 
   if(_verbose){
-    printf("Open file: %s\n", input_file);
+    printf("Open file: %s.\n", input_file);
   }
   fp = fopen(input_file, "r");
   if(fp){
@@ -78,12 +79,12 @@ int process_file(char *input_file, uint32_t window_size){
     }
     fclose(fp);
   }else{
-    fprintf(stderr, "Could not open file '%s\'\n", input_file);
+    fprintf(stderr, "Could not open file '%s\'.\n", input_file);
     return -2;
   }
 
   if(file_content == NULL){
-    fprintf(stderr, "No data read from file '%s'\n", input_file);
+    fprintf(stderr, "No data read from file '%s'.\n", input_file);
     return -2;
   }
 
@@ -92,25 +93,10 @@ int process_file(char *input_file, uint32_t window_size){
   for(int i = 0; file_content[i]; i++){
     file_content[i] = tolower(file_content[i]);
   }
-  
-  printf("%s", file_content);
-
+  if(_verbose){
+    printf("Processed file content.\n");
+  }
   return 0;
 }
 
 
-void remove_nonalpha(char *str)
-{
-    unsigned long i = 0;
-    unsigned long j = 0;
-    char c;
-
-    while ((c = str[i++]) != '\0')
-    {
-        if (isalpha(c) || c == ' ')
-        {
-            str[j++] = c;
-        }
-    }
-    str[j] = '\0';
-}

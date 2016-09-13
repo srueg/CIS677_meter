@@ -11,7 +11,6 @@ typedef struct{
 
 void remove_nonalpha(char *);
 
-void print_word_counts(word_count_t **);
 void increase_word_count(word_count_t **, char *);
 uint32_t get_word_count(word_count_t **);
 void clear_word_counts(word_count_t **);

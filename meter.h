@@ -12,4 +12,6 @@
 int process_file(char *, uint32_t);
 void remove_nonalpha(char *);
 
+#define WINDOW_SIZE 32
+
 #endif // MAIN_H_

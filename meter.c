@@ -4,6 +4,9 @@
 
 bool _verbose = false;
 
+word_count_t *word_counters_total = NULL;
+word_count_t *word_counters_local = NULL;
+
 int main(int argc, char *argv[]) {
 
   uint32_t window_size = 32;
@@ -89,8 +92,21 @@ int process_file(char *input_file, uint32_t window_size){
   if(_verbose){
     printf("Cleaned file content.\n");
   }
+
+  char *word = strtok(file_content," ");
   
+  uint32_t total_word_count = 0;
   
+  do{
+    total_word_count++;
+    increase_word_count(&word_counters_total, word);
+  }while((word = strtok(NULL, " ")) != NULL);
+
+  uint32_t distinct_word_count = get_word_count(&word_counters_total);
+  double total_complexity = (double)distinct_word_count / total_word_count;
+
+  printf("Distinct words: %i, total words: %i, total complexity: %f\n", distinct_word_count, total_word_count, total_complexity);
+
   return 0;
 }
 

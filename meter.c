@@ -116,7 +116,7 @@ int process_file(char *input_file, uint32_t window_size){
   uint32_t total_word_count = 0;
   char *word = strtok(file_content," ");
    
-  do{
+  while(word != NULL){
     increase_word_count(&word_counters_local, word);
     increase_word_count(&word_counters_total, word);
     total_word_count++;
@@ -126,7 +126,8 @@ int process_file(char *input_file, uint32_t window_size){
       printf("Window %i: local complexity: %f\n", total_word_count/window_size, local_complexity);
       clear_word_counts(&word_counters_local);
     }
-  }while((word = strtok(NULL, " ")) != NULL);
+    word = strtok(NULL, " ");
+  }
 
   uint32_t distinct_word_count = get_word_count(&word_counters_total);
   /* calculate total complexity */

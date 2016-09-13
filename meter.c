@@ -1,12 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
-#include <unistd.h>
-#include <stdbool.h>
 
 #include "meter.h"
-#include "helpers.h"
 
 
 bool _verbose = false;
@@ -94,8 +87,10 @@ int process_file(char *input_file, uint32_t window_size){
     file_content[i] = tolower(file_content[i]);
   }
   if(_verbose){
-    printf("Processed file content.\n");
+    printf("Cleaned file content.\n");
   }
+  
+  
   return 0;
 }
 
